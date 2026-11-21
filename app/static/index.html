@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Flood and Landslide Risk Engine</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23102A43'/%3E%3Cpath d='M4 22c4-8 7-8 10-2s7 4 14-6' fill='none' stroke='%230284C7' stroke-width='3' stroke-linecap='round'/%3E%3Cpath d='M4 27h24' stroke='%23C2410C' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="command-bar">
+  <div class="brand">
+    <svg class="emblem" viewBox="0 0 40 40" aria-hidden="true">
+      <rect width="40" height="40" rx="9" fill="#102A43"/>
+      <path d="M5 27c5-10 9-10 13-3s9 5 17-8" fill="none" stroke="#38BDF8" stroke-width="3" stroke-linecap="round"/>
+      <path d="M5 32c6-6 10-6 14-2s9 3 16-4" fill="none" stroke="#D97706" stroke-width="1.6" stroke-linecap="round" opacity=".85"/>
+      <path d="M13 14l4-6 4 6" fill="none" stroke="#F5F6F2" stroke-width="1.6" stroke-linejoin="round"/>
+    </svg>
+    <div class="brand-text">
+      <h1 id="brandTitle">Multi Agent Flood Discharge Forecasting and Geospatial Landslide Risk Engine</h1>
+      <span class="brand-sub">Live Open-Meteo telemetry for Indian towns, farms and hill settlements</span>
+    </div>
+  </div>
+  <nav class="tabs" role="tablist" aria-label="Workbench views">
+    <button role="tab" class="tab active" data-view="workbench" aria-selected="true">Risk Assessment Workbench</button>
+    <button role="tab" class="tab" data-view="compare" aria-selected="false">Basin vs. Basin Compare</button>
+    <button role="tab" class="tab" data-view="brief" aria-selected="false">Emergency Action Brief</button>
+  </nav>
+  <div class="bar-actions">
+    <span class="pill" id="quotaPill" aria-live="polite">15/15 Free Demo Runs Left This Hour</span>
+    <button class="btn ghost" id="historyBtn" type="button">History</button>
+    <button class="btn ghost" id="keysBtn" type="button">API Keys <span class="dot" id="keysDot" aria-hidden="true"></span></button>
+  </div>
+</header>
+
+<div id="banner" class="banner" role="alert" hidden>
+  <span id="bannerText"></span>
+  <button class="btn small" id="bannerAction" type="button" hidden>Open API Keys</button>
+  <button class="icon-btn" id="bannerClose" type="button" aria-label="Dismiss message">&times;</button>
+</div>
+
+<main>
+  <!-- ===== Risk Assessment Workbench ===== -->
+  <section id="view-workbench" class="view active" aria-label="Risk Assessment Workbench">
+    <aside class="panel intake" aria-label="Intake and telemetry control">
+      <h2 class="panel-title">Location intake</h2>
+      <form id="analyzeForm" autocomplete="off">
+        <label for="loc">Indian town, district or farm location</label>
+        <input id="loc" name="loc" type="text" maxlength="120" placeholder="e.g. Wayanad, Kerala" required>
+        <label for="profile">Asset profile</label>
+        <select id="profile" name="profile"></select>
+        <button class="btn primary wide" id="runBtn" type="submit">Run 7-day risk analysis</button>
+      </form>
+
+      <h3 class="sub-title">Sample scenarios</h3>
+      <div class="chips" id="chips" role="group" aria-label="Sample scenarios"></div>
+      <p class="hint">Samples open a saved result instantly and use no runs.</p>
+
+      <h3 class="sub-title">Multi-agent execution pipeline</h3>
+      <ol class="tracker" id="tracker" aria-live="polite">
+        <li data-step="1"><span class="node">1</span><div><b>Agent 1: Geospatial &amp; Elevation Resolver</b><small>Geocoding + DEM terrain elevation</small><em></em></div></li>
+        <li data-step="2"><span class="node">2</span><div><b>Agent 2: River Discharge Hydrologist</b><small>Open-Meteo 7-day flood discharge (m³/s) &amp; peak surge ratio</small><em></em></div></li>
+        <li data-step="3"><span class="node">3</span><div><b>Agent 3: Terrain &amp; Soil Saturation Assessor</b><small>7-day precipitation + soil moisture landslide index</small><em></em></div></li>
+        <li data-step="4"><span class="node">4</span><div><b>Agent 4: Groq Disaster Preparedness Strategist</b><small>72-hour town / farm action plan &amp; evacuation checklist</small><em></em></div></li>
+      </ol>
+    </aside>
+
+    <section class="canvas" id="canvas" aria-label="Cartographic telemetry canvas">
+      <div class="empty" id="emptyState">
+        <svg viewBox="0 0 120 80" width="120" aria-hidden="true"><path d="M5 60c15-30 25-30 38-10s30 12 55-28" fill="none" stroke="#0284C7" stroke-width="3" stroke-linecap="round"/><path d="M5 72h110" stroke="#C2410C" stroke-width="2" stroke-dasharray="5 4"/></svg>
+        <h2>Pick a sample or enter a place</h2>
+        <p>The canvas will show the 7-day flood risk score, the landslide susceptibility score, the river hydrograph and a 72-hour preparedness plan.</p>
+      </div>
+      <div id="resultMount"></div>
+    </section>
+  </section>
+
+  <!-- ===== Basin vs Basin Compare ===== -->
+  <section id="view-compare" class="view" aria-label="Basin versus basin compare">
+    <div class="panel compare-form">
+      <h2 class="panel-title">Compare two locations</h2>
+      <form id="compareForm" autocomplete="off">
+        <div class="two-col">
+          <div><label for="locA">Location A</label><input id="locA" type="text" maxlength="120" placeholder="e.g. Wayanad, Kerala" required></div>
+          <div><label for="locB">Location B</label><input id="locB" type="text" maxlength="120" placeholder="e.g. Kaziranga, Assam" required></div>
+        </div>
+        <label for="profileCmp">Asset profile (applies to both)</label>
+        <select id="profileCmp"></select>
+        <button class="btn primary" id="cmpBtn" type="submit">Compare basins</button>
+        <span class="hint inline" id="cmpStatus" aria-live="polite"></span>
+      </form>
+    </div>
+    <div id="compareMount"></div>
+  </section>
+
+  <!-- ===== Emergency Action Brief ===== -->
+  <section id="view-brief" class="view" aria-label="Emergency action brief">
+    <div class="brief-tools no-print">
+      <button class="btn primary" id="printBtn" type="button">Print this brief</button>
+      <span class="hint inline">Shows the most recent analysis from the workbench.</span>
+    </div>
+    <div id="briefMount"></div>
+  </section>
+</main>
+
+<!-- ===== History drawer ===== -->
+<aside class="drawer" id="historyDrawer" aria-label="History" hidden>
+  <div class="drawer-head">
+    <h2>History</h2>
+    <button class="icon-btn" id="historyClose" type="button" aria-label="Close history">&times;</button>
+  </div>
+  <ul class="history-list" id="historyList"></ul>
+  <button class="btn ghost small" id="historyClear" type="button">Clear history</button>
+</aside>
+
+<!-- ===== API Keys modal ===== -->
+<dialog id="keysModal" aria-labelledby="keysTitle">
+  <form method="dialog" class="modal-body" id="keysForm">
+    <h2 id="keysTitle">Groq API key</h2>
+    <p class="hint">Free, about a minute, no card: <a href="https://console.groq.com/keys" target="_blank" rel="noopener">console.groq.com/keys</a></p>
+    <p id="keysStatus" class="key-status">Checking…</p>
+    <label for="keyInput">Paste your key</label>
+    <input id="keyInput" type="password" placeholder="gsk_..." autocomplete="off" spellcheck="false">
+    <div class="modal-actions">
+      <button class="btn primary" id="keySave" type="button">Save key</button>
+      <button class="btn ghost" id="keyRemove" type="button">Remove saved key</button>
+      <button class="btn ghost" id="keyClose" type="button">Close</button>
+    </div>
+    <p id="keyMsg" class="hint" aria-live="polite"></p>
+  </form>
+</dialog>
+
+<div class="tooltip" id="tooltip" role="status" hidden></div>
+<script src="js/app.js"></script>
+</body>
+</html>

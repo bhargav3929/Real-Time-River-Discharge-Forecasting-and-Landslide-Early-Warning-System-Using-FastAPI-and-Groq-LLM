@@ -1,0 +1,200 @@
+{
+  "location": {
+    "query": "Kaziranga, Assam",
+    "name": "Kaziranga",
+    "admin1": "Assam",
+    "country": "India",
+    "latitude": 26.5892,
+    "longitude": 93.4085,
+    "elevation_m": 74,
+    "terrain": {
+      "class": "Hilly upland",
+      "relief_m": 485,
+      "grid_min_m": 70,
+      "grid_max_m": 555,
+      "mean_slope_deg": 1.2
+    }
+  },
+  "asset_profile": "Agricultural Farm & Crop Belt",
+  "generated_at": "2026-11-21T14:11:14Z",
+  "forecast_period": {
+    "start": "2026-11-21",
+    "end": "2026-11-27"
+  },
+  "flood": {
+    "score": 1,
+    "tier": "Low",
+    "components": {
+      "surge": 0.0,
+      "threshold_exceedance": 0.0,
+      "rain_total": 0.01,
+      "rain_peak_day": 0.02
+    },
+    "discharge_available": true,
+    "peak_discharge_m3s": 0.57,
+    "peak_date": "2026-11-25",
+    "baseline_m3s": 2.45,
+    "surge_ratio": 0.23,
+    "threshold_m3s": 7.88,
+    "threshold_basis": "Highest of: 90th percentile of the past 92 days, or 1.25 x the 92-day median"
+  },
+  "landslide": {
+    "score": 38,
+    "tier": "Moderate",
+    "terrain_class": "Hilly upland",
+    "components": {
+      "relief": 0.54,
+      "elevation": 0.05,
+      "soil_saturation": 0.8,
+      "rain_trigger": 0.01,
+      "rain_peak_day": 0.01
+    },
+    "soil_moisture_peak": 0.39,
+    "soil_moisture_mean": 0.38
+  },
+  "rain": {
+    "total_7d_mm": 2.6,
+    "antecedent_3d_mm": 0.0,
+    "max_daily_mm": 1.5
+  },
+  "series": [
+    {
+      "date": "2026-11-21",
+      "discharge_m3s": 0.21,
+      "discharge_max_m3s": 0.21,
+      "precip_mm": 0.0,
+      "precip_prob_pct": 33,
+      "soil_moisture": 0.39
+    },
+    {
+      "date": "2026-11-22",
+      "discharge_m3s": 0.21,
+      "discharge_max_m3s": 0.21,
+      "precip_mm": 0.9,
+      "precip_prob_pct": 67,
+      "soil_moisture": 0.385
+    },
+    {
+      "date": "2026-11-23",
+      "discharge_m3s": 0.21,
+      "discharge_max_m3s": 0.26,
+      "precip_mm": 1.5,
+      "precip_prob_pct": 75,
+      "soil_moisture": 0.385
+    },
+    {
+      "date": "2026-11-24",
+      "discharge_m3s": 0.46,
+      "discharge_max_m3s": 0.46,
+      "precip_mm": 0.2,
+      "precip_prob_pct": 65,
+      "soil_moisture": 0.383
+    },
+    {
+      "date": "2026-11-25",
+      "discharge_m3s": 0.57,
+      "discharge_max_m3s": 0.72,
+      "precip_mm": 0.0,
+      "precip_prob_pct": 0,
+      "soil_moisture": 0.376
+    },
+    {
+      "date": "2026-11-26",
+      "discharge_m3s": 0.51,
+      "discharge_max_m3s": 0.79,
+      "precip_mm": 0.0,
+      "precip_prob_pct": 0,
+      "soil_moisture": 0.369
+    },
+    {
+      "date": "2026-11-27",
+      "discharge_m3s": 0.45,
+      "discharge_max_m3s": 0.69,
+      "precip_mm": 0.0,
+      "precip_prob_pct": 0,
+      "soil_moisture": 0.375
+    }
+  ],
+  "helplines": [
+    {
+      "name": "National Emergency Response",
+      "number": "112"
+    },
+    {
+      "name": "Ambulance",
+      "number": "108"
+    },
+    {
+      "name": "Disaster Management Helpline",
+      "number": "1070"
+    },
+    {
+      "name": "NDMA Control Room",
+      "number": "1078"
+    },
+    {
+      "name": "Kisan Call Centre (farm advice)",
+      "number": "1800-180-1551"
+    }
+  ],
+  "agents": [
+    {
+      "step": 1,
+      "name": "Agent 1: Geospatial & Elevation Resolver",
+      "status": "done",
+      "ms": 1388,
+      "summary": "Kaziranga, Assam at 74 m. Hilly upland, 485 m relief in an 11 km window."
+    },
+    {
+      "step": 2,
+      "name": "Agent 2: River Discharge Hydrologist",
+      "status": "done",
+      "ms": 722,
+      "summary": "Peak 0.6 m³/s on 2026-11-25, 0.2x the recent median (2.5 m³/s). Flood risk 1/100 (Low)."
+    },
+    {
+      "step": 3,
+      "name": "Agent 3: Terrain & Soil Saturation Assessor",
+      "status": "done",
+      "ms": 249,
+      "summary": "3 mm rain over 7 days (+0 mm in the last 3), soil moisture peak 0.39 m³/m³. Landslide score 38/100 (Moderate)."
+    },
+    {
+      "step": 4,
+      "name": "Agent 4: Groq Disaster Preparedness Strategist",
+      "status": "done",
+      "ms": 0,
+      "summary": "Rule-based plan (no Groq key was set when this sample was recorded)."
+    }
+  ],
+  "disclaimer": "Indicative model output built from open forecast data. It is not an official warning. Always follow alerts from IMD, CWC and your District Disaster Management Authority.",
+  "advisory": {
+    "headline": "Kaziranga: Low flood risk and Moderate landslide susceptibility this week.",
+    "flood_summary": "Peak river discharge near Kaziranga is 0.57 m³/s, 0.23x the recent median, against a flood threshold of 7.88 m³/s. Forecast rain totals 2.6 mm over 7 days (wettest day 1.5 mm).",
+    "landslide_summary": "Terrain is hilly upland with 485 m of relief nearby. Peak soil moisture is 0.39 m³/m³ and the landslide score is 38/100.",
+    "immediate_24h_actions": [
+      "Move vehicles, cattle and valuables away from the river bank and low ground.",
+      "Check the IMD district warning and the CWC river bulletin each morning and evening.",
+      "Keep a torch, power bank, drinking water and basic medicines in one bag.",
+      "Note which road or lane floods first and agree on an alternative route."
+    ],
+    "next_48_72h_actions": [
+      "Re-check this forecast daily; discharge and rain forecasts shift as new model runs arrive.",
+      "Clear drains, culverts and gutters near the house or field before any rain band arrives."
+    ],
+    "agri_livestock_steps": [
+      "Move seed, fertiliser and harvested produce above likely water level or under cover.",
+      "Keep fodder and clean drinking water stocked for animals for at least three days.",
+      "Open field drains so standing water can leave quickly after heavy rain."
+    ],
+    "evacuation_checklist": [
+      "Agree a meeting point on high ground and tell every family member.",
+      "Keep Aadhaar, land papers, bank passbook and insurance copies in a waterproof bag.",
+      "Save 112, 108 and the district control room number on every phone.",
+      "Know who in the neighbourhood needs help to move (elderly, sick, young children)."
+    ],
+    "confidence_note": "Rule-based plan recorded without a live AI call. Scores come from the same live data."
+  },
+  "advisory_source": "rule-based-offline",
+  "model": null
+}

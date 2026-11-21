@@ -1,0 +1,202 @@
+{
+  "location": {
+    "query": "Wayanad, Kerala",
+    "name": "Wayanad",
+    "admin1": "Kerala",
+    "country": "India",
+    "latitude": 11.6103,
+    "longitude": 76.083,
+    "elevation_m": 748,
+    "terrain": {
+      "class": "Gently undulating terrain",
+      "relief_m": 155,
+      "grid_min_m": 731,
+      "grid_max_m": 886,
+      "mean_slope_deg": 0.3
+    }
+  },
+  "asset_profile": "Hill / Ghat Road & Settlement",
+  "generated_at": "2026-11-21T14:11:17Z",
+  "forecast_period": {
+    "start": "2026-11-21",
+    "end": "2026-11-27"
+  },
+  "flood": {
+    "score": 4,
+    "tier": "Low",
+    "components": {
+      "surge": 0.0,
+      "threshold_exceedance": 0.0,
+      "rain_total": 0.13,
+      "rain_peak_day": 0.09
+    },
+    "discharge_available": true,
+    "peak_discharge_m3s": 0.34,
+    "peak_date": "2026-11-21",
+    "baseline_m3s": 0.57,
+    "surge_ratio": 0.59,
+    "threshold_m3s": 1.39,
+    "threshold_basis": "Highest of: 90th percentile of the past 92 days, or 1.25 x the 92-day median"
+  },
+  "landslide": {
+    "score": 36,
+    "tier": "Moderate",
+    "terrain_class": "Gently undulating terrain",
+    "components": {
+      "relief": 0.17,
+      "elevation": 0.5,
+      "soil_saturation": 0.93,
+      "rain_trigger": 0.09,
+      "rain_peak_day": 0.07
+    },
+    "soil_moisture_peak": 0.429,
+    "soil_moisture_mean": 0.369
+  },
+  "rain": {
+    "total_7d_mm": 26.0,
+    "antecedent_3d_mm": 0.0,
+    "max_daily_mm": 7.5
+  },
+  "series": [
+    {
+      "date": "2026-11-21",
+      "discharge_m3s": 0.34,
+      "discharge_max_m3s": 0.34,
+      "precip_mm": 0.1,
+      "precip_prob_pct": 63,
+      "soil_moisture": 0.356
+    },
+    {
+      "date": "2026-11-22",
+      "discharge_m3s": 0.31,
+      "discharge_max_m3s": 0.31,
+      "precip_mm": 0.0,
+      "precip_prob_pct": 56,
+      "soil_moisture": 0.349
+    },
+    {
+      "date": "2026-11-23",
+      "discharge_m3s": 0.3,
+      "discharge_max_m3s": 0.31,
+      "precip_mm": 0.0,
+      "precip_prob_pct": 10,
+      "soil_moisture": 0.341
+    },
+    {
+      "date": "2026-11-24",
+      "discharge_m3s": 0.29,
+      "discharge_max_m3s": 0.31,
+      "precip_mm": 5.2,
+      "precip_prob_pct": 73,
+      "soil_moisture": 0.342
+    },
+    {
+      "date": "2026-11-25",
+      "discharge_m3s": 0.27,
+      "discharge_max_m3s": 0.3,
+      "precip_mm": 7.5,
+      "precip_prob_pct": 100,
+      "soil_moisture": 0.37
+    },
+    {
+      "date": "2026-11-26",
+      "discharge_m3s": 0.27,
+      "discharge_max_m3s": 0.3,
+      "precip_mm": 6.0,
+      "precip_prob_pct": 100,
+      "soil_moisture": 0.399
+    },
+    {
+      "date": "2026-11-27",
+      "discharge_m3s": 0.28,
+      "discharge_max_m3s": 0.43,
+      "precip_mm": 7.2,
+      "precip_prob_pct": 100,
+      "soil_moisture": 0.429
+    }
+  ],
+  "helplines": [
+    {
+      "name": "National Emergency Response",
+      "number": "112"
+    },
+    {
+      "name": "Ambulance",
+      "number": "108"
+    },
+    {
+      "name": "Disaster Management Helpline",
+      "number": "1070"
+    },
+    {
+      "name": "NDMA Control Room",
+      "number": "1078"
+    },
+    {
+      "name": "Kisan Call Centre (farm advice)",
+      "number": "1800-180-1551"
+    }
+  ],
+  "agents": [
+    {
+      "step": 1,
+      "name": "Agent 1: Geospatial & Elevation Resolver",
+      "status": "done",
+      "ms": 1584,
+      "summary": "Wayanad, Kerala at 748 m. Gently undulating terrain, 155 m relief in an 11 km window."
+    },
+    {
+      "step": 2,
+      "name": "Agent 2: River Discharge Hydrologist",
+      "status": "done",
+      "ms": 773,
+      "summary": "Peak 0.3 m³/s on 2026-11-21, 0.6x the recent median (0.6 m³/s). Flood risk 4/100 (Low)."
+    },
+    {
+      "step": 3,
+      "name": "Agent 3: Terrain & Soil Saturation Assessor",
+      "status": "done",
+      "ms": 285,
+      "summary": "26 mm rain over 7 days (+0 mm in the last 3), soil moisture peak 0.429 m³/m³. Landslide score 36/100 (Moderate)."
+    },
+    {
+      "step": 4,
+      "name": "Agent 4: Groq Disaster Preparedness Strategist",
+      "status": "done",
+      "ms": 0,
+      "summary": "Rule-based plan (no Groq key was set when this sample was recorded)."
+    }
+  ],
+  "disclaimer": "Indicative model output built from open forecast data. It is not an official warning. Always follow alerts from IMD, CWC and your District Disaster Management Authority.",
+  "advisory": {
+    "headline": "Wayanad: Low flood risk and Moderate landslide susceptibility this week.",
+    "flood_summary": "Peak river discharge near Wayanad is 0.34 m³/s, 0.59x the recent median, against a flood threshold of 1.39 m³/s. Forecast rain totals 26.0 mm over 7 days (wettest day 7.5 mm).",
+    "landslide_summary": "Terrain is gently undulating terrain with 155 m of relief nearby. Peak soil moisture is 0.429 m³/m³ and the landslide score is 36/100.",
+    "immediate_24h_actions": [
+      "Move vehicles, cattle and valuables away from the river bank and low ground.",
+      "Check the IMD district warning and the CWC river bulletin each morning and evening.",
+      "Keep a torch, power bank, drinking water and basic medicines in one bag.",
+      "Note which road or lane floods first and agree on an alternative route.",
+      "Avoid slopes and road cuttings during and after heavy rain; watch for new cracks, tilting trees and muddy springs."
+    ],
+    "next_48_72h_actions": [
+      "Re-check this forecast daily; discharge and rain forecasts shift as new model runs arrive.",
+      "Clear drains, culverts and gutters near the house or field before any rain band arrives."
+    ],
+    "agri_livestock_steps": [
+      "Move seed, fertiliser and harvested produce above likely water level or under cover.",
+      "Keep fodder and clean drinking water stocked for animals for at least three days.",
+      "Open field drains so standing water can leave quickly after heavy rain."
+    ],
+    "evacuation_checklist": [
+      "Agree a meeting point on high ground and tell every family member.",
+      "Keep Aadhaar, land papers, bank passbook and insurance copies in a waterproof bag.",
+      "Save 112, 108 and the district control room number on every phone.",
+      "Know who in the neighbourhood needs help to move (elderly, sick, young children).",
+      "If the ground shows cracks or a stream turns muddy, leave the slope at once without waiting for an order."
+    ],
+    "confidence_note": "Rule-based plan recorded without a live AI call. Scores come from the same live data."
+  },
+  "advisory_source": "rule-based-offline",
+  "model": null
+}
