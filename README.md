@@ -87,3 +87,10 @@ The files in `samples/results/` were made by `scripts/record_samples.py`. Run it
 - **The install failed or is very slow.** Check your internet connection and run the start script again. It carries on where it stopped.
 - **"We couldn't find that place".** Try the district or a nearby larger town, and add the state, for example `Idukki, Kerala`.
 - **"The live weather and river data service didn't answer".** Open-Meteo or your connection is down for a moment. Try again shortly.
+
+Run the command:
+Windows (PowerShell):
+python -m venv .venv; .\.venv\Scripts\python.exe -m pip install -r requirements.txt; .\.venv\Scripts\python.exe -m uvicorn app.main:app --host 127.0.0.1 --port 8006
+
+macOS / Linux (Terminal):
+python3 -m venv .venv && ./.venv/bin/python -m pip install -r requirements.txt && ./.venv/bin/python -m uvicorn app.main:app --host 127.0.0.1 --port 8006
