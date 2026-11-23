@@ -1,4 +1,4 @@
-"""Embedded SQLite (WAL): saved key, hourly scan slots, history, demo run counts."""
+"""Embedded SQLite (WAL): saved key, history, demo run counts."""
 import json
 import sqlite3
 import time
@@ -6,7 +6,6 @@ from contextlib import contextmanager
 
 from .config import S
 
-WINDOW_SECONDS = 3600
 DAY = 86400
 
 
@@ -27,8 +26,6 @@ def init_db() -> None:
         c.executescript(
             """
             CREATE TABLE IF NOT EXISTS kv (name TEXT PRIMARY KEY, value TEXT);
-            CREATE TABLE IF NOT EXISTS slots (id INTEGER PRIMARY KEY AUTOINCREMENT, owner TEXT, ts REAL);
-            CREATE INDEX IF NOT EXISTS idx_slots_owner ON slots(owner, ts);
             CREATE TABLE IF NOT EXISTS history (id INTEGER PRIMARY KEY AUTOINCREMENT, owner TEXT, ts REAL,
                 kind TEXT, title TEXT, payload TEXT);
             CREATE INDEX IF NOT EXISTS idx_history_owner ON history(owner, ts);
@@ -54,40 +51,6 @@ def set_saved_key(key: str) -> None:
 def delete_saved_key() -> None:
     with conn() as c:
         c.execute("DELETE FROM kv WHERE name='groq_api_key'")
-
-
-# ---- hourly sliding-window quota -----------------------------------------
-def slots_left(owner: str) -> int:
-    cutoff = time.time() - WINDOW_SECONDS
-    with conn() as c:
-        n = c.execute("SELECT COUNT(*) n FROM slots WHERE owner=? AND ts>?", (owner, cutoff)).fetchone()["n"]
-    return max(0, S.HOURLY_SCANS - n)
-
-
-def reserve_slot(owner: str):
-    """Take one slot atomically. Returns the slot id, or None when all 15 are used."""
-    now = time.time()
-    with conn() as c:
-        c.execute("BEGIN IMMEDIATE")
-        try:
-            c.execute("DELETE FROM slots WHERE ts<?", (now - WINDOW_SECONDS,))
-            n = c.execute("SELECT COUNT(*) n FROM slots WHERE owner=?", (owner,)).fetchone()["n"]
-            if n >= S.HOURLY_SCANS:
-                c.execute("COMMIT")
-                return None
-            cur = c.execute("INSERT INTO slots(owner,ts) VALUES(?,?)", (owner, now))
-            c.execute("COMMIT")
-            return cur.lastrowid
-        except Exception:
-            c.execute("ROLLBACK")
-            raise
-
-
-def refund_slot(slot_id) -> None:
-    if slot_id is None:
-        return
-    with conn() as c:
-        c.execute("DELETE FROM slots WHERE id=?", (slot_id,))
 
 
 # ---- history --------------------------------------------------------------
@@ -127,7 +90,6 @@ def purge_demo() -> None:
         old = [r["tid"] for r in c.execute("SELECT tid FROM demo_runs WHERE first_ts<?", (cutoff,)).fetchall()]
         for tid in old:
             c.execute("DELETE FROM history WHERE owner=?", (tid,))
-            c.execute("DELETE FROM slots WHERE owner=?", (tid,))
         c.execute("DELETE FROM demo_runs WHERE first_ts<?", (cutoff,))
         c.execute("DELETE FROM history WHERE ts<? AND owner<>'local'", (cutoff,))
 

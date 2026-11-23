@@ -46,7 +46,6 @@ class S:
     DEMO_DAILY_CAP = _int("DEMO_DAILY_CAP", 200)
     TRUST_PROXY = _bool("TRUST_PROXY", False)
 
-    HOURLY_SCANS = 15
     FLOOD_URL = _str("OPEN_METEO_FLOOD_URL", "https://flood-api.open-meteo.com/v1/flood")
     FORECAST_URL = _str("OPEN_METEO_FORECAST_URL", "https://api.open-meteo.com/v1/forecast")
     ELEVATION_URL = _str("OPEN_METEO_ELEVATION_URL", "https://api.open-meteo.com/v1/elevation")

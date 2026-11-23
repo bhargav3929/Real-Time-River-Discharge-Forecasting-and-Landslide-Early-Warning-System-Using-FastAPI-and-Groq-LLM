@@ -25,17 +25,30 @@ TICKET_MESSAGES = {
     "TICKET_USED_UP": (429, "You have used all the live runs on this demo ticket. The bundled samples still work."),
     "DAILY_CAP_REACHED": (429, "The shared demo has reached today's limit. Try again tomorrow or open a bundled sample."),
 }
-RATE_MSG = "You have used all 15 free scans for this hour. Try again later, or open a bundled sample."
+
+
+async def _purge_loop():
+    """Demo only: delete ticket history and run counts older than 24 hours, every 30 minutes."""
+    while True:
+        await asyncio.sleep(1800)
+        try:
+            db.purge_demo()
+        except Exception as e:
+            log.warning("demo purge failed: %s", type(e).__name__)
 
 
 @asynccontextmanager
 async def lifespan(_app):
     db.init_db()
+    task = None
     if S.DEMO_MODE:
         db.purge_demo()
         if not S.DEMO_TICKET_SECRET:
             log.warning("DEMO_MODE is on but DEMO_TICKET_SECRET is empty: every ticket will be rejected.")
+        task = asyncio.create_task(_purge_loop())
     yield
+    if task:
+        task.cancel()
 
 
 app = FastAPI(title=S.PROJECT_NAME, version=S.VERSION, lifespan=lifespan, docs_url=None, redoc_url=None, openapi_url=None)
@@ -67,14 +80,6 @@ async def _unexpected(_r, e: Exception):
 
 
 # ---------------------------------------------------------------- helpers
-def client_ip(request: Request) -> str:
-    if S.TRUST_PROXY:
-        xff = request.headers.get("x-forwarded-for", "")
-        if xff.strip():
-            return xff.split(",")[0].strip()
-    return request.client.host if request.client else "unknown"
-
-
 def peek_owner(request: Request):
     """Owner id for read-only views. Returns (owner or None, ticket payload or None)."""
     if not S.DEMO_MODE:
@@ -160,7 +165,6 @@ async def health():
 async def info(request: Request):
     key, _ = keys.resolve_key()
     owner, payload = peek_owner(request)
-    left = db.slots_left(owner) if owner else S.HOURLY_SCANS
     demo = None
     if S.DEMO_MODE:
         runs_left = max(0, int(payload.get("runs", 0)) - db.demo_runs_used(owner)) if payload else 0
@@ -169,8 +173,7 @@ async def info(request: Request):
     return {"name": S.PROJECT_NAME, "slug": S.PROJECT_SLUG, "number": S.PROJECT_NUMBER, "version": S.VERSION,
             "mode": "demo" if S.DEMO_MODE else "local",
             "ai": {"provider": "groq", "ready": bool(key), "model": S.GROQ_MODEL},
-            "limits": {"max_upload_mb": S.DEMO_MAX_UPLOAD_MB if S.DEMO_MODE else S.MAX_UPLOAD_MB,
-                       "hourly_scans": S.HOURLY_SCANS, "scans_left": left},
+            "limits": {"max_upload_mb": S.DEMO_MAX_UPLOAD_MB if S.DEMO_MODE else S.MAX_UPLOAD_MB},
             "demo": demo, "profiles": pipeline.PROFILES}
 
 
@@ -241,11 +244,8 @@ async def history_clear(request: Request):
 
 # ---------------------------------------------------------------- feature routes
 def _begin(request: Request):
-    owner, payload = gate(request)
-    slot = db.reserve_slot(owner)
-    if slot is None:
-        raise AppError(429, "RATE_LIMITED", RATE_MSG)
-    return owner, payload, slot
+    """Check the demo ticket (no limits in the download version). Returns (owner, ticket payload)."""
+    return gate(request)
 
 
 def _finish_ok(owner: str, payload, kind: str, title: str, result: dict) -> int:
@@ -265,20 +265,13 @@ async def _execute_analyze(loc: str, prof: str, emit):
 async def analyze(request: Request, stream: int = 0):
     body = await read_json(request)
     loc, prof = pipeline.validate_query(body.get("location"), body.get("profile"))
-    owner, payload, slot = _begin(request)
+    owner, payload = _begin(request)
 
     async def run(emit):
-        ok = False
-        try:
-            r = await _execute_analyze(loc, prof, emit)
-            r["history_id"] = _finish_ok(owner, payload, "analyze",
-                                         f"{r['location']['name']}, {r['location']['admin1']}", r)
-            ok = True
-            r["scans_left"] = db.slots_left(owner)
-            return r
-        finally:
-            if not ok:
-                db.refund_slot(slot)
+        r = await _execute_analyze(loc, prof, emit)
+        r["history_id"] = _finish_ok(owner, payload, "analyze",
+                                     f"{r['location']['name']}, {r['location']['admin1']}", r)
+        return r
 
     if not stream:
         r = await run(None)
@@ -294,12 +287,11 @@ async def analyze(request: Request, stream: int = 0):
             r = await run(emit)
             await q.put({"event": "result", "result": r})
         except AppError as e:
-            await q.put({"event": "error", "status": e.status, **e.body(), "scans_left": db.slots_left(owner)})
+            await q.put({"event": "error", "status": e.status, **e.body()})
         except Exception as e:  # never leak provider text
             log.exception("analyze failed: %s", type(e).__name__)
             await q.put({"event": "error", "status": 500, "code": "AI_FAILED",
-                         "error": "Something went wrong while analysing. Please try again.",
-                         "scans_left": db.slots_left(owner)})
+                         "error": "Something went wrong while analysing. Please try again."})
         finally:
             await q.put(None)
 
@@ -320,22 +312,15 @@ async def compare(request: Request):
     body = await read_json(request)
     loc_a, prof = pipeline.validate_query(body.get("location_a"), body.get("profile"))
     loc_b, _ = pipeline.validate_query(body.get("location_b"), body.get("profile"))
-    owner, payload, slot = _begin(request)
-    ok = False
-    try:
-        check_ai_ready()
-        async with geo.new_client() as client:
-            a, b = await asyncio.gather(pipeline.gather(client, loc_a, prof), pipeline.gather(client, loc_b, prof))
-        cmp_, model = await pipeline.compare_strategist(a, b)
-        result = {"a": a, "b": b, "comparison": cmp_, "model": model, "advisory_source": "groq"}
-        result["history_id"] = _finish_ok(owner, payload, "compare",
-                                          f"{a['location']['name']} vs {b['location']['name']}", result)
-        ok = True
-        result["scans_left"] = db.slots_left(owner)
-        return result
-    finally:
-        if not ok:
-            db.refund_slot(slot)
+    owner, payload = _begin(request)
+    check_ai_ready()
+    async with geo.new_client() as client:
+        a, b = await asyncio.gather(pipeline.gather(client, loc_a, prof), pipeline.gather(client, loc_b, prof))
+    cmp_, model = await pipeline.compare_strategist(a, b)
+    result = {"a": a, "b": b, "comparison": cmp_, "model": model, "advisory_source": "groq"}
+    result["history_id"] = _finish_ok(owner, payload, "compare",
+                                      f"{a['location']['name']} vs {b['location']['name']}", result)
+    return result
 
 
 # ---------------------------------------------------------------- frontend (relative URLs only)

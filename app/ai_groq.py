@@ -17,7 +17,7 @@ log = logging.getLogger("groq")
 
 GROQ_URL = "https://api.groq.com/openai/v1/chat/completions"
 TIMEOUT = 45.0
-RETRIES = 3  # retries after the first try, per model (waits 1s, 2s, 4s + jitter)
+RETRIES = 2  # retries after the first try = 3 attempts per model (waits 1s, 2s + jitter)
 RETRYABLE = {429, 500, 502, 503, 504}
 
 MSG_NOT_CONFIGURED = "No Groq key is set yet. Open API Keys and paste a free key from console.groq.com/keys."

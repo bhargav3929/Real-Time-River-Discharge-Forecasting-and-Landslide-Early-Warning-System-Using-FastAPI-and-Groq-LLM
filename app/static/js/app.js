@@ -53,12 +53,13 @@ function showBanner(err) {
 function hideBanner() { $("#banner").hidden = true; }
 
 /* ---------------- quota pill ---------------- */
-function setQuota(n) {
-  if (typeof n !== "number") return;
-  const total = (state.info && state.info.limits.hourly_scans) || 15;
+function setQuota() {
   const pill = $("#quotaPill");
-  pill.textContent = `${n}/${total} Free Demo Runs Left This Hour`;
-  pill.classList.toggle("low", n <= 3);
+  const d = state.info && state.info.mode === "demo" ? state.info.demo : null;
+  pill.hidden = !(d && d.ticket_valid);
+  if (pill.hidden) return;
+  pill.textContent = `${d.runs_left} Live ${d.runs_left === 1 ? "Run" : "Runs"} Left`;
+  pill.classList.toggle("low", d.runs_left <= 1);
 }
 
 /* ---------------- tabs ---------------- */
@@ -340,12 +341,11 @@ async function runAnalysis(location, profile) {
     if (!final) throw { error: "The analysis ended without a result. Please try again.", code: "AI_FAILED" };
     trackerFromAgents(final.agents);
     renderResult(final, false);
-    setQuota(final.scans_left);
+    refreshInfo();
   } catch (err) {
     setStep(running, "error");
     showBanner(err);
-    if (typeof err.scans_left === "number") setQuota(err.scans_left);
-    else refreshInfo();
+    refreshInfo();
   } finally {
     state.busy = false;
     $("#runBtn").disabled = false;
@@ -394,7 +394,7 @@ async function runCompare(ev) {
     const out = compareHTML(res);
     $("#compareMount").innerHTML = out.html;
     bindChart(out.A.uid, res.a); bindChart(out.B.uid, res.b);
-    setQuota(res.scans_left);
+    refreshInfo();
   } catch (err) {
     showBanner(err);
     refreshInfo();
@@ -492,7 +492,7 @@ async function removeKey() {
 async function refreshInfo() {
   try {
     state.info = await api("api/info");
-    setQuota(state.info.limits.scans_left);
+    setQuota();
     return state.info;
   } catch (err) { showBanner(err); return null; }
 }

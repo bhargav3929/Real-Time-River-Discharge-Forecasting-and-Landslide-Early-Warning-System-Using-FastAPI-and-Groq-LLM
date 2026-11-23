@@ -31,7 +31,7 @@ The bundled samples open without a key. Your own locations need one.
 4. To try your own place, type it in the box (for example `Kodagu, Karnataka`), pick an asset profile, and press **Run 7-day risk analysis**. Watch the four agents finish one by one.
 5. **Basin vs. Basin Compare** puts two places side by side. **Emergency Action Brief** gives a one-page printable version of your latest result. **History** brings back earlier runs.
 
-You get 15 live runs per hour. A run that fails (for example an unknown place or a busy AI service) is not counted.
+There is no limit on how many places you analyse. Groq's free tier has its own limits, so if it says it is busy, wait a minute and try again.
 
 ## How it works
 
@@ -42,14 +42,14 @@ Your location goes through four agents in order:
 3. **Agent 3: Terrain & Soil Saturation Assessor** (`app/geo.py`, `app/scoring.py`) reads rainfall and soil moisture from the Open-Meteo Forecast API and combines them with terrain relief into the landslide susceptibility score.
 4. **Agent 4: Groq Disaster Preparedness Strategist** (`app/pipeline.py`, `app/ai_groq.py`) sends the measured numbers to Groq and gets back a structured 72-hour plan. If the main model is busy, it retries and then switches to the backup model.
 
-`app/main.py` serves the pages and the routes, `app/db.py` keeps the 15-per-hour counter, history and your saved key in a small local SQLite file, and the screens are plain HTML, CSS and JavaScript in `app/static/`. The scores are calculated by fixed rules in `app/scoring.py`, so the AI never invents the numbers.
+`app/main.py` serves the pages and the routes, `app/db.py` keeps your history and your saved key in a small local SQLite file, and the screens are plain HTML, CSS and JavaScript in `app/static/`. The scores are calculated by fixed rules in `app/scoring.py`, so the AI never invents the numbers.
 
 The files in `samples/results/` were made by `scripts/record_samples.py`. Run it again at any time to refresh them with today's forecast. With a Groq key set, the 72-hour plan in each file is written by Groq.
 
 ## Project structure
 
 ```
-06_flood_landslide_early_warning/
+Real-Time-River-Discharge-Forecasting-and-Landslide-Early-Warning-System-Using-FastAPI-and-Groq-LLM/
 ├── start.sh                 one-command start for macOS / Linux
 ├── start.bat                one-command start for Windows
 ├── requirements.txt
@@ -62,7 +62,7 @@ The files in `samples/results/` were made by `scripts/record_samples.py`. Run it
 │   ├── scoring.py           flood and landslide score rules
 │   ├── db.py                SQLite storage (data/flood_risk.db, created on first run)
 │   ├── keys.py              Groq key checks and masking
-│   ├── access.py            signed-access check used by hosted copies
+│   ├── access.py            request access checks
 │   ├── config.py            reads .env
 │   ├── errors.py            plain-sentence error type
 │   └── static/
@@ -73,7 +73,8 @@ The files in `samples/results/` were made by `scripts/record_samples.py`. Run it
 │   ├── wayanad-kerala.json
 │   ├── kaziranga-assam.json
 │   ├── hyderabad-telangana.json
-│   └── results/             saved results for the three samples
+│   ├── jaisalmer-rajasthan.json
+│   └── results/             saved results for the four samples
 └── scripts/
     └── record_samples.py    re-record the sample results
 ```
