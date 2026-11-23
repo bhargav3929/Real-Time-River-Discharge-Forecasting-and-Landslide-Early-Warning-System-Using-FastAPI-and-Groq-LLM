@@ -184,7 +184,35 @@ function chartHTML(r, uid) {
     </div>
     ${hasQ ? "" : '<p class="hint">No river channel was found in the discharge grid cell for this place, so only rainfall is plotted.</p>'}
     <p class="hint">Threshold: ${esc(r.flood.threshold_basis)}.</p>
+    ${telemetryAuditHTML(r)}
   </div>`;
+}
+
+function telemetryAuditHTML(r) {
+  const t = r.telemetry || {};
+  const loc = r.location, f = r.flood;
+  const lat = t.latitude ?? loc.latitude, lon = t.longitude ?? loc.longitude;
+  const dem = t.dem_elevation_m ?? loc.elevation_m;
+  const p90 = t.p90_threshold_m3s;
+  const applied = t.applied_threshold_m3s ?? f.threshold_m3s;
+  const m = (v) => (v == null ? "n/a" : fmt(v, 2) + " m³/s");
+  const rows = [
+    ["Resolved coordinates", `${fmt(lat, 4)}°N, ${fmt(lon, 4)}°E`],
+    ["DEM elevation", `${dem} m`],
+    ["92-day P90 discharge", f.discharge_available === false ? "n/a (no river channel)" : (p90 == null ? "not recorded in this saved result; re-run live" : m(p90))],
+    ["92-day median baseline", m(t.median_baseline_m3s ?? f.baseline_m3s)],
+    ["Threshold applied in scoring", m(applied)],
+  ];
+  const src = (t.sources || []).map((s) =>
+    `<tr><td>${esc(s.name)}</td><td>${esc(s.data_window || "n/a")}</td><td>${esc(s.fetched_at)}</td></tr>`).join("");
+  const srcHTML = src
+    ? `<table class="audit-src"><thead><tr><th>Source</th><th>Data window</th><th>Fetched (UTC)</th></tr></thead><tbody>${src}</tbody></table>`
+    : `<p class="hint">Source timestamps were not stored in this saved result. Result generated ${esc(r.generated_at)}.</p>`;
+  return `<details class="audit"><summary>Telemetry Verification &amp; Baseline Audit</summary>
+    <dl class="audit-grid">${rows.map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`).join("")}</dl>
+    ${srcHTML}
+    <p class="hint">Threshold = highest of the P90 and 1.25 x the median of the past 92 days. Compare with raw values at open-meteo.com.</p>
+  </details>`;
 }
 
 function bindChart(uid, r) {

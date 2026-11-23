@@ -16,105 +16,131 @@
     }
   },
   "asset_profile": "Hill / Ghat Road & Settlement",
-  "generated_at": "2026-11-21T14:11:17Z",
+  "generated_at": "2026-11-23T08:42:34Z",
   "forecast_period": {
-    "start": "2026-11-21",
-    "end": "2026-11-27"
+    "start": "2026-11-23",
+    "end": "2026-11-29"
   },
   "flood": {
-    "score": 4,
+    "score": 6,
     "tier": "Low",
     "components": {
       "surge": 0.0,
       "threshold_exceedance": 0.0,
-      "rain_total": 0.13,
-      "rain_peak_day": 0.09
+      "rain_total": 0.19,
+      "rain_peak_day": 0.11
     },
     "discharge_available": true,
-    "peak_discharge_m3s": 0.34,
-    "peak_date": "2026-11-21",
-    "baseline_m3s": 0.57,
-    "surge_ratio": 0.59,
-    "threshold_m3s": 1.39,
+    "peak_discharge_m3s": 0.31,
+    "peak_date": "2026-11-29",
+    "baseline_m3s": 0.56,
+    "surge_ratio": 0.56,
+    "threshold_m3s": 1.35,
     "threshold_basis": "Highest of: 90th percentile of the past 92 days, or 1.25 x the 92-day median"
   },
   "landslide": {
-    "score": 36,
+    "score": 38,
     "tier": "Moderate",
     "terrain_class": "Gently undulating terrain",
     "components": {
       "relief": 0.17,
       "elevation": 0.5,
-      "soil_saturation": 0.93,
-      "rain_trigger": 0.09,
-      "rain_peak_day": 0.07
+      "soil_saturation": 0.97,
+      "rain_trigger": 0.12,
+      "rain_peak_day": 0.09
     },
-    "soil_moisture_peak": 0.429,
-    "soil_moisture_mean": 0.369
+    "soil_moisture_peak": 0.44,
+    "soil_moisture_mean": 0.4
   },
   "rain": {
-    "total_7d_mm": 26.0,
-    "antecedent_3d_mm": 0.0,
-    "max_daily_mm": 7.5
+    "total_7d_mm": 37.3,
+    "antecedent_3d_mm": 0.1,
+    "max_daily_mm": 8.8
   },
   "series": [
     {
-      "date": "2026-11-21",
-      "discharge_m3s": 0.34,
-      "discharge_max_m3s": 0.34,
-      "precip_mm": 0.1,
-      "precip_prob_pct": 63,
-      "soil_moisture": 0.356
-    },
-    {
-      "date": "2026-11-22",
-      "discharge_m3s": 0.31,
-      "discharge_max_m3s": 0.31,
-      "precip_mm": 0.0,
-      "precip_prob_pct": 56,
-      "soil_moisture": 0.349
-    },
-    {
       "date": "2026-11-23",
       "discharge_m3s": 0.3,
-      "discharge_max_m3s": 0.31,
+      "discharge_max_m3s": 0.3,
       "precip_mm": 0.0,
-      "precip_prob_pct": 10,
-      "soil_moisture": 0.341
+      "precip_prob_pct": 14,
+      "soil_moisture": 0.344
     },
     {
       "date": "2026-11-24",
-      "discharge_m3s": 0.29,
-      "discharge_max_m3s": 0.31,
-      "precip_mm": 5.2,
-      "precip_prob_pct": 73,
-      "soil_moisture": 0.342
+      "discharge_m3s": 0.28,
+      "discharge_max_m3s": 0.29,
+      "precip_mm": 5.6,
+      "precip_prob_pct": 87,
+      "soil_moisture": 0.346
     },
     {
       "date": "2026-11-25",
       "discharge_m3s": 0.27,
-      "discharge_max_m3s": 0.3,
-      "precip_mm": 7.5,
+      "discharge_max_m3s": 0.27,
+      "precip_mm": 8.8,
       "precip_prob_pct": 100,
-      "soil_moisture": 0.37
+      "soil_moisture": 0.382
     },
     {
       "date": "2026-11-26",
       "discharge_m3s": 0.27,
-      "discharge_max_m3s": 0.3,
-      "precip_mm": 6.0,
+      "discharge_max_m3s": 0.31,
+      "precip_mm": 8.8,
       "precip_prob_pct": 100,
-      "soil_moisture": 0.399
+      "soil_moisture": 0.417
     },
     {
       "date": "2026-11-27",
-      "discharge_m3s": 0.28,
-      "discharge_max_m3s": 0.43,
-      "precip_mm": 7.2,
+      "discharge_m3s": 0.29,
+      "discharge_max_m3s": 0.4,
+      "precip_mm": 8.1,
       "precip_prob_pct": 100,
-      "soil_moisture": 0.429
+      "soil_moisture": 0.436
+    },
+    {
+      "date": "2026-11-28",
+      "discharge_m3s": 0.3,
+      "discharge_max_m3s": 0.43,
+      "precip_mm": 1.8,
+      "precip_prob_pct": 100,
+      "soil_moisture": 0.44
+    },
+    {
+      "date": "2026-11-29",
+      "discharge_m3s": 0.31,
+      "discharge_max_m3s": 0.44,
+      "precip_mm": 4.2,
+      "precip_prob_pct": 94,
+      "soil_moisture": 0.435
     }
   ],
+  "telemetry": {
+    "latitude": 11.6103,
+    "longitude": 76.083,
+    "dem_elevation_m": 748,
+    "p90_threshold_m3s": 1.35,
+    "median_baseline_m3s": 0.56,
+    "applied_threshold_m3s": 1.35,
+    "history_days_used": 92,
+    "sources": [
+      {
+        "name": "Open-Meteo Geocoding + Elevation (DEM)",
+        "fetched_at": "2026-11-23T08:42:33Z",
+        "data_window": "static 3x3 DEM grid, 0.05 deg spacing"
+      },
+      {
+        "name": "Open-Meteo Flood API (river discharge)",
+        "fetched_at": "2026-11-23T08:42:34Z",
+        "data_window": "2026-08-23 to 2026-11-29"
+      },
+      {
+        "name": "Open-Meteo Forecast API (rain, soil moisture)",
+        "fetched_at": "2026-11-23T08:42:34Z",
+        "data_window": "2026-11-20 to 2026-11-29"
+      }
+    ]
+  },
   "helplines": [
     {
       "name": "National Emergency Response",
@@ -142,61 +168,65 @@
       "step": 1,
       "name": "Agent 1: Geospatial & Elevation Resolver",
       "status": "done",
-      "ms": 1584,
+      "ms": 1601,
       "summary": "Wayanad, Kerala at 748 m. Gently undulating terrain, 155 m relief in an 11 km window."
     },
     {
       "step": 2,
       "name": "Agent 2: River Discharge Hydrologist",
       "status": "done",
-      "ms": 773,
-      "summary": "Peak 0.3 m³/s on 2026-11-21, 0.6x the recent median (0.6 m³/s). Flood risk 4/100 (Low)."
+      "ms": 613,
+      "summary": "Peak 0.3 m³/s on 2026-11-29, 0.6x the recent median (0.6 m³/s). Flood risk 6/100 (Low)."
     },
     {
       "step": 3,
       "name": "Agent 3: Terrain & Soil Saturation Assessor",
       "status": "done",
-      "ms": 285,
-      "summary": "26 mm rain over 7 days (+0 mm in the last 3), soil moisture peak 0.429 m³/m³. Landslide score 36/100 (Moderate)."
+      "ms": 205,
+      "summary": "37 mm rain over 7 days (+0 mm in the last 3), soil moisture peak 0.44 m³/m³. Landslide score 38/100 (Moderate)."
     },
     {
       "step": 4,
       "name": "Agent 4: Groq Disaster Preparedness Strategist",
       "status": "done",
-      "ms": 0,
-      "summary": "Rule-based plan (no Groq key was set when this sample was recorded)."
+      "ms": 1540,
+      "summary": "72-hour plan written by openai/gpt-oss-120b."
     }
   ],
   "disclaimer": "Indicative model output built from open forecast data. It is not an official warning. Always follow alerts from IMD, CWC and your District Disaster Management Authority.",
   "advisory": {
-    "headline": "Wayanad: Low flood risk and Moderate landslide susceptibility this week.",
-    "flood_summary": "Peak river discharge near Wayanad is 0.34 m³/s, 0.59x the recent median, against a flood threshold of 1.39 m³/s. Forecast rain totals 26.0 mm over 7 days (wettest day 7.5 mm).",
-    "landslide_summary": "Terrain is gently undulating terrain with 155 m of relief nearby. Peak soil moisture is 0.429 m³/m³ and the landslide score is 36/100.",
+    "headline": "Moderate landslide risk, low flood risk in Wayanad hills",
+    "flood_summary": "Flood score 6 (Low). Peak discharge 0.31 m³/s on 2026-11-29, below threshold 1.35 m³/s. Rain total 37.3 mm in 7 days, max daily 8.8 mm.",
+    "landslide_summary": "Landslide score 38 (Moderate). Soil saturation 0.97, soil moisture peak 0.44. Relief 0.17, elevation factor 0.5. Rain trigger 0.12, rain peak day 0.09.",
     "immediate_24h_actions": [
-      "Move vehicles, cattle and valuables away from the river bank and low ground.",
-      "Check the IMD district warning and the CWC river bulletin each morning and evening.",
-      "Keep a torch, power bank, drinking water and basic medicines in one bag.",
-      "Note which road or lane floods first and agree on an alternative route.",
-      "Avoid slopes and road cuttings during and after heavy rain; watch for new cracks, tilting trees and muddy springs."
+      "Check that all roof and wall cracks are sealed to prevent water seepage.",
+      "Clear debris from the road and drainage channels near the settlement.",
+      "Move livestock and stored grain to higher ground away from slope bases.",
+      "Secure loose tools, pots, and firewood on stable platforms.",
+      "Turn off electric appliances near wet areas and keep generators outdoors."
     ],
     "next_48_72h_actions": [
-      "Re-check this forecast daily; discharge and rain forecasts shift as new model runs arrive.",
-      "Clear drains, culverts and gutters near the house or field before any rain band arrives."
+      "Monitor daily rainfall forecasts; if precip_prob >80% stay alert.",
+      "Inspect slope faces for new cracks or bulges each morning.",
+      "Reinforce retaining walls with sandbags or earthbags if water seeps behind them.",
+      "Prepare evacuation route to the nearest safe zone on the main road."
     ],
     "agri_livestock_steps": [
-      "Move seed, fertiliser and harvested produce above likely water level or under cover.",
-      "Keep fodder and clean drinking water stocked for animals for at least three days.",
-      "Open field drains so standing water can leave quickly after heavy rain."
+      "Move cattle, goats and poultry to the community high‑ground shelter.",
+      "Elevate stored rice, millets and spices on pallets above floor level.",
+      "Cover fodder stacks with waterproof tarpaulins.",
+      "Check that water troughs are clean and positioned away from possible runoff."
     ],
     "evacuation_checklist": [
-      "Agree a meeting point on high ground and tell every family member.",
-      "Keep Aadhaar, land papers, bank passbook and insurance copies in a waterproof bag.",
-      "Save 112, 108 and the district control room number on every phone.",
-      "Know who in the neighbourhood needs help to move (elderly, sick, young children).",
-      "If the ground shows cracks or a stream turns muddy, leave the slope at once without waiting for an order."
+      "Pack emergency kit: water, dry food, medicines, torch, battery.",
+      "Carry important documents in a waterproof bag.",
+      "Load livestock into sturdy crates and keep them calm.",
+      "Take a map and note the nearest safe road or school shelter.",
+      "Inform all neighbours of the evacuation plan.",
+      "Leave early if road water rises or landslide sounds are heard."
     ],
-    "confidence_note": "Rule-based plan recorded without a live AI call. Scores come from the same live data."
+    "confidence_note": "Based on the provided telemetry and risk scores, confidence is high for the flood outlook and moderate for landslide warnings."
   },
-  "advisory_source": "rule-based-offline",
-  "model": null
+  "advisory_source": "groq",
+  "model": "openai/gpt-oss-120b"
 }

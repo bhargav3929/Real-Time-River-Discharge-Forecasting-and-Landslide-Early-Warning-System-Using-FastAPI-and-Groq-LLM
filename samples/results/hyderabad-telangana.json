@@ -16,105 +16,131 @@
     }
   },
   "asset_profile": "Town / Residential Ward",
-  "generated_at": "2026-11-21T14:11:12Z",
+  "generated_at": "2026-11-23T08:42:22Z",
   "forecast_period": {
-    "start": "2026-11-21",
-    "end": "2026-11-27"
+    "start": "2026-11-23",
+    "end": "2026-11-29"
   },
   "flood": {
-    "score": 1,
+    "score": 0,
     "tier": "Low",
     "components": {
       "surge": 0.0,
       "threshold_exceedance": 0.0,
-      "rain_total": 0.03,
-      "rain_peak_day": 0.07
+      "rain_total": 0.01,
+      "rain_peak_day": 0.02
     },
     "discharge_available": true,
-    "peak_discharge_m3s": 9.52,
-    "peak_date": "2026-11-27",
-    "baseline_m3s": 8.68,
-    "surge_ratio": 1.1,
+    "peak_discharge_m3s": 8.18,
+    "peak_date": "2026-11-23",
+    "baseline_m3s": 8.56,
+    "surge_ratio": 0.96,
     "threshold_m3s": 19.39,
     "threshold_basis": "Highest of: 90th percentile of the past 92 days, or 1.25 x the 92-day median"
   },
   "landslide": {
-    "score": 8,
+    "score": 7,
     "tier": "Low",
     "terrain_class": "Gently undulating terrain",
     "components": {
       "relief": 0.12,
       "elevation": 0.34,
       "soil_saturation": 0.0,
-      "rain_trigger": 0.02,
-      "rain_peak_day": 0.05
+      "rain_trigger": 0.01,
+      "rain_peak_day": 0.01
     },
-    "soil_moisture_peak": 0.134,
-    "soil_moisture_mean": 0.126
+    "soil_moisture_peak": 0.125,
+    "soil_moisture_mean": 0.122
   },
   "rain": {
-    "total_7d_mm": 6.0,
+    "total_7d_mm": 2.4,
     "antecedent_3d_mm": 0.0,
-    "max_daily_mm": 5.4
+    "max_daily_mm": 1.5
   },
   "series": [
-    {
-      "date": "2026-11-21",
-      "discharge_m3s": 8.23,
-      "discharge_max_m3s": 8.27,
-      "precip_mm": 0.0,
-      "precip_prob_pct": 0,
-      "soil_moisture": 0.126
-    },
-    {
-      "date": "2026-11-22",
-      "discharge_m3s": 8.2,
-      "discharge_max_m3s": 8.27,
-      "precip_mm": 0.0,
-      "precip_prob_pct": 0,
-      "soil_moisture": 0.123
-    },
     {
       "date": "2026-11-23",
       "discharge_m3s": 8.18,
       "discharge_max_m3s": 8.23,
       "precip_mm": 0.0,
       "precip_prob_pct": 0,
-      "soil_moisture": 0.122
+      "soil_moisture": 0.121
     },
     {
       "date": "2026-11-24",
       "discharge_m3s": 8.14,
       "discharge_max_m3s": 8.18,
       "precip_mm": 0.0,
-      "precip_prob_pct": 0,
-      "soil_moisture": 0.122
+      "precip_prob_pct": 4,
+      "soil_moisture": 0.12
     },
     {
       "date": "2026-11-25",
-      "discharge_m3s": 8.06,
+      "discharge_m3s": 8.08,
       "discharge_max_m3s": 8.1,
-      "precip_mm": 0.6,
-      "precip_prob_pct": 18,
-      "soil_moisture": 0.122
+      "precip_mm": 1.5,
+      "precip_prob_pct": 79,
+      "soil_moisture": 0.123
     },
     {
       "date": "2026-11-26",
-      "discharge_m3s": 8.06,
-      "discharge_max_m3s": 19.8,
-      "precip_mm": 5.4,
-      "precip_prob_pct": 18,
-      "soil_moisture": 0.133
+      "discharge_m3s": 8.04,
+      "discharge_max_m3s": 8.06,
+      "precip_mm": 0.9,
+      "precip_prob_pct": 48,
+      "soil_moisture": 0.125
     },
     {
       "date": "2026-11-27",
-      "discharge_m3s": 9.52,
-      "discharge_max_m3s": 32.19,
+      "discharge_m3s": 8.08,
+      "discharge_max_m3s": 28.38,
       "precip_mm": 0.0,
-      "precip_prob_pct": 6,
-      "soil_moisture": 0.134
+      "precip_prob_pct": 12,
+      "soil_moisture": 0.122
+    },
+    {
+      "date": "2026-11-28",
+      "discharge_m3s": 8.18,
+      "discharge_max_m3s": 20.04,
+      "precip_mm": 0.0,
+      "precip_prob_pct": 2,
+      "soil_moisture": 0.12
+    },
+    {
+      "date": "2026-11-29",
+      "discharge_m3s": 8.1,
+      "discharge_max_m3s": 47.64,
+      "precip_mm": 0.0,
+      "precip_prob_pct": 0,
+      "soil_moisture": 0.12
     }
   ],
+  "telemetry": {
+    "latitude": 17.384,
+    "longitude": 78.4564,
+    "dem_elevation_m": 515,
+    "p90_threshold_m3s": 19.39,
+    "median_baseline_m3s": 8.56,
+    "applied_threshold_m3s": 19.39,
+    "history_days_used": 92,
+    "sources": [
+      {
+        "name": "Open-Meteo Geocoding + Elevation (DEM)",
+        "fetched_at": "2026-11-23T08:42:21Z",
+        "data_window": "static 3x3 DEM grid, 0.05 deg spacing"
+      },
+      {
+        "name": "Open-Meteo Flood API (river discharge)",
+        "fetched_at": "2026-11-23T08:42:22Z",
+        "data_window": "2026-08-23 to 2026-11-29"
+      },
+      {
+        "name": "Open-Meteo Forecast API (rain, soil moisture)",
+        "fetched_at": "2026-11-23T08:42:22Z",
+        "data_window": "2026-11-20 to 2026-11-29"
+      }
+    ]
+  },
   "helplines": [
     {
       "name": "National Emergency Response",
@@ -142,58 +168,63 @@
       "step": 1,
       "name": "Agent 1: Geospatial & Elevation Resolver",
       "status": "done",
-      "ms": 1450,
+      "ms": 1235,
       "summary": "Hyderabad, Telangana at 515 m. Gently undulating terrain, 108 m relief in an 11 km window."
     },
     {
       "step": 2,
       "name": "Agent 2: River Discharge Hydrologist",
       "status": "done",
-      "ms": 699,
-      "summary": "Peak 9.5 m³/s on 2026-11-27, 1.1x the recent median (8.7 m³/s). Flood risk 1/100 (Low)."
+      "ms": 636,
+      "summary": "Peak 8.2 m³/s on 2026-11-23, 1.0x the recent median (8.6 m³/s). Flood risk 0/100 (Low)."
     },
     {
       "step": 3,
       "name": "Agent 3: Terrain & Soil Saturation Assessor",
       "status": "done",
-      "ms": 158,
-      "summary": "6 mm rain over 7 days (+0 mm in the last 3), soil moisture peak 0.134 m³/m³. Landslide score 8/100 (Low)."
+      "ms": 179,
+      "summary": "2 mm rain over 7 days (+0 mm in the last 3), soil moisture peak 0.125 m³/m³. Landslide score 7/100 (Low)."
     },
     {
       "step": 4,
       "name": "Agent 4: Groq Disaster Preparedness Strategist",
       "status": "done",
-      "ms": 0,
-      "summary": "Rule-based plan (no Groq key was set when this sample was recorded)."
+      "ms": 1349,
+      "summary": "72-hour plan written by openai/gpt-oss-120b."
     }
   ],
   "disclaimer": "Indicative model output built from open forecast data. It is not an official warning. Always follow alerts from IMD, CWC and your District Disaster Management Authority.",
   "advisory": {
-    "headline": "Hyderabad: no major flood or landslide trigger in the 7-day forecast.",
-    "flood_summary": "Peak river discharge near Hyderabad is 9.52 m³/s, 1.1x the recent median, against a flood threshold of 19.39 m³/s. Forecast rain totals 6.0 mm over 7 days (wettest day 5.4 mm).",
-    "landslide_summary": "Terrain is gently undulating terrain with 108 m of relief nearby. Peak soil moisture is 0.134 m³/m³ and the landslide score is 8/100.",
+    "headline": "Low flood risk, low landslide risk – stay alert for sudden water spikes",
+    "flood_summary": "Flood score 0 (Low). Peak discharge 8.18 m³/s, below threshold 19.39 m³/s. Rain expected 1.5 mm on 2026‑11‑25 and 0.9 mm on 2026‑11‑26.",
+    "landslide_summary": "Landslide score 7 (Low). Terrain gently undulating, relief 0.12, elevation 0.34, soil moisture around 0.12 – no immediate danger.",
     "immediate_24h_actions": [
-      "Check the IMD district warning and the CWC river bulletin each morning and evening.",
-      "Keep a torch, power bank, drinking water and basic medicines in one bag.",
-      "Note which road or lane floods first and agree on an alternative route."
+      "Check that drainage pipes and gutters are clear of debris",
+      "Secure loose items near roads and open spaces",
+      "Turn off electrical appliances in basements or low‑lying rooms",
+      "Keep a bucket and sandbags ready in case of sudden water rise"
     ],
     "next_48_72h_actions": [
-      "Re-check this forecast daily; discharge and rain forecasts shift as new model runs arrive.",
-      "Clear drains, culverts and gutters near the house or field before any rain band arrives."
+      "Monitor daily discharge updates; watch for spikes above 20 m³/s",
+      "If rain exceeds 2 mm in a day, inspect nearby slopes for cracks",
+      "Prepare sandbags for vulnerable streets before 2026‑11‑27",
+      "Inform neighbours of any water pooling and share resources"
     ],
     "agri_livestock_steps": [
-      "Move seed, fertiliser and harvested produce above likely water level or under cover.",
-      "Keep fodder and clean drinking water stocked for animals for at least three days.",
-      "Open field drains so standing water can leave quickly after heavy rain."
+      "Move stored grains to higher shelves or raised platforms",
+      "Secure livestock shelters by checking roof drainage",
+      "Store feed in waterproof containers",
+      "Check that animal water troughs are not flooded"
     ],
     "evacuation_checklist": [
-      "Agree a meeting point on high ground and tell every family member.",
-      "Keep Aadhaar, land papers, bank passbook and insurance copies in a waterproof bag.",
-      "Save 112, 108 and the district control room number on every phone.",
-      "Know who in the neighbourhood needs help to move (elderly, sick, young children)."
+      "Identify the nearest high ground or community hall",
+      "Pack a bag with water, medicines, documents and a flashlight",
+      "Keep mobile phone charged and have emergency numbers ready",
+      "Plan routes avoiding low‑lying roads",
+      "Notify family members of meeting point"
     ],
-    "confidence_note": "Rule-based plan recorded without a live AI call. Scores come from the same live data."
+    "confidence_note": "Based on current telemetry and short‑term forecast; conditions may change if heavy rain occurs."
   },
-  "advisory_source": "rule-based-offline",
-  "model": null
+  "advisory_source": "groq",
+  "model": "openai/gpt-oss-120b"
 }

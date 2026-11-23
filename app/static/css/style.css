@@ -246,3 +246,12 @@ dialog::backdrop { background: rgba(16,42,67,.45); }
   main { padding: 0; }
   .brief { border: 0; padding: 0; max-width: none; }
 }
+
+/* Telemetry Verification & Baseline Audit */
+.audit { margin-top: 12px; border: 1px solid #D5DEE8; border-radius: 8px; padding: 8px 12px; font-size: 13px; }
+.audit summary { cursor: pointer; font-weight: 600; }
+.audit-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 8px 16px; margin: 10px 0; }
+.audit-grid dt { font-size: 12px; opacity: .7; }
+.audit-grid dd { margin: 0; font-weight: 600; font-variant-numeric: tabular-nums; }
+.audit-src { width: 100%; border-collapse: collapse; font-size: 12px; }
+.audit-src th, .audit-src td { text-align: left; padding: 4px 6px; border-top: 1px solid #D5DEE8; }

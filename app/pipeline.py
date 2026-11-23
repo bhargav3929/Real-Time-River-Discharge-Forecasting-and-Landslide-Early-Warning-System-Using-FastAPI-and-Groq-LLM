@@ -64,6 +64,10 @@ def validate_query(location, profile):
     return loc, prof
 
 
+def _utc_now() -> str:
+    return datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+
+
 def _day_label(iso: str) -> str:
     return iso
 
@@ -90,6 +94,7 @@ async def gather(client, loc: str, profile: str, emit=None, check_ai=None):
         raise AppError(400, "BAD_INPUT",
                        f"We couldn't find \"{loc}\" in India. Check the spelling or try a nearby town or district.")
     terrain = await geo.elevation_profile(client, place["latitude"], place["longitude"])
+    t_geo = _utc_now()
     await done(1, int((time.time() - t) * 1000),
                f"{place['name']}, {place['admin1']} at {terrain['elevation_m']} m. {terrain['class']}, "
                f"{terrain['relief_m']} m relief in an 11 km window.")
@@ -101,6 +106,7 @@ async def gather(client, loc: str, profile: str, emit=None, check_ai=None):
     await start(2)
     t = time.time()
     flood_raw = await geo.river_discharge(client, place["latitude"], place["longitude"])
+    t_flood = _utc_now()
     dis = scoring.discharge_stats(flood_raw["q"], flood_raw["qmax"])
     if dis["available"]:
         s2 = (f"Peak {dis['peak']:.1f} m³/s on {flood_raw['dates'][-7:][dis['peak_idx']]}, "
@@ -112,6 +118,7 @@ async def gather(client, loc: str, profile: str, emit=None, check_ai=None):
     await start(3)
     t = time.time()
     wx = await geo.rain_and_soil(client, place["latitude"], place["longitude"])
+    t_wx = _utc_now()
     await done(3, int((time.time() - t) * 1000), "Rainfall and soil moisture loaded.")
 
     # ---- assemble 7-day series --------------------------------------------------
@@ -165,6 +172,21 @@ async def gather(client, loc: str, profile: str, emit=None, check_ai=None):
         "rain": {"total_7d_mm": round(rain_total, 1), "antecedent_3d_mm": round(ante, 1),
                  "max_daily_mm": round(rain_max, 1)},
         "series": series,
+        "telemetry": {
+            "latitude": round(place["latitude"], 4), "longitude": round(place["longitude"], 4),
+            "dem_elevation_m": terrain["elevation_m"],
+            "p90_threshold_m3s": round(dis["p90"], 2) if dis["available"] else None,
+            "median_baseline_m3s": round(dis["baseline"], 2) if dis["available"] else None,
+            "applied_threshold_m3s": round(dis["threshold"], 2) if dis["available"] else None,
+            "history_days_used": dis.get("hist_days") if dis["available"] else 0,
+            "sources": [
+                {"name": "Open-Meteo Geocoding + Elevation (DEM)", "fetched_at": t_geo,
+                 "data_window": "static 3x3 DEM grid, 0.05 deg spacing"},
+                {"name": "Open-Meteo Flood API (river discharge)", "fetched_at": t_flood,
+                 "data_window": f"{flood_raw['dates'][0]} to {flood_raw['dates'][-1]}" if flood_raw["dates"] else None},
+                {"name": "Open-Meteo Forecast API (rain, soil moisture)", "fetched_at": t_wx,
+                 "data_window": f"{wx['dates'][0]} to {wx['dates'][-1]}" if wx["dates"] else None},
+            ]},
         "helplines": HELPLINES,
         "agents": agents,
         "disclaimer": DISCLAIMER,

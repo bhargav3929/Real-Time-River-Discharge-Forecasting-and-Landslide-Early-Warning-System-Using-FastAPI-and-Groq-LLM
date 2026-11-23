@@ -1,0 +1,227 @@
+{
+  "location": {
+    "query": "Jaisalmer, Rajasthan",
+    "name": "Jaisalmer",
+    "admin1": "Rajasthan",
+    "country": "India",
+    "latitude": 26.9176,
+    "longitude": 70.9039,
+    "elevation_m": 237,
+    "terrain": {
+      "class": "Flat plain / floodplain",
+      "relief_m": 53,
+      "grid_min_m": 197,
+      "grid_max_m": 250,
+      "mean_slope_deg": 0.1
+    }
+  },
+  "asset_profile": "Town / Residential Ward",
+  "generated_at": "2026-11-23T08:42:26Z",
+  "forecast_period": {
+    "start": "2026-11-23",
+    "end": "2026-11-29"
+  },
+  "flood": {
+    "score": 0,
+    "tier": "Low",
+    "components": {
+      "surge": 0.0,
+      "threshold_exceedance": 0.0,
+      "rain_total": 0.0,
+      "rain_peak_day": 0.0
+    },
+    "discharge_available": true,
+    "peak_discharge_m3s": 0.0,
+    "peak_date": "2026-11-23",
+    "baseline_m3s": 0.0,
+    "surge_ratio": 0.0,
+    "threshold_m3s": 0.05,
+    "threshold_basis": "Highest of: 90th percentile of the past 92 days, or 1.25 x the 92-day median"
+  },
+  "landslide": {
+    "score": 3,
+    "tier": "Low",
+    "terrain_class": "Flat plain / floodplain",
+    "components": {
+      "relief": 0.06,
+      "elevation": 0.16,
+      "soil_saturation": 0.0,
+      "rain_trigger": 0.0,
+      "rain_peak_day": 0.0
+    },
+    "soil_moisture_peak": 0.15,
+    "soil_moisture_mean": 0.144
+  },
+  "rain": {
+    "total_7d_mm": 0.0,
+    "antecedent_3d_mm": 0.0,
+    "max_daily_mm": 0.0
+  },
+  "series": [
+    {
+      "date": "2026-11-23",
+      "discharge_m3s": 0.0,
+      "discharge_max_m3s": 0.0,
+      "precip_mm": 0.0,
+      "precip_prob_pct": 0,
+      "soil_moisture": 0.15
+    },
+    {
+      "date": "2026-11-24",
+      "discharge_m3s": 0.0,
+      "discharge_max_m3s": 0.0,
+      "precip_mm": 0.0,
+      "precip_prob_pct": 0,
+      "soil_moisture": 0.147
+    },
+    {
+      "date": "2026-11-25",
+      "discharge_m3s": 0.0,
+      "discharge_max_m3s": 0.0,
+      "precip_mm": 0.0,
+      "precip_prob_pct": 0,
+      "soil_moisture": 0.145
+    },
+    {
+      "date": "2026-11-26",
+      "discharge_m3s": 0.0,
+      "discharge_max_m3s": 0.0,
+      "precip_mm": 0.0,
+      "precip_prob_pct": 0,
+      "soil_moisture": 0.143
+    },
+    {
+      "date": "2026-11-27",
+      "discharge_m3s": 0.0,
+      "discharge_max_m3s": 0.0,
+      "precip_mm": 0.0,
+      "precip_prob_pct": 0,
+      "soil_moisture": 0.142
+    },
+    {
+      "date": "2026-11-28",
+      "discharge_m3s": 0.0,
+      "discharge_max_m3s": 0.0,
+      "precip_mm": 0.0,
+      "precip_prob_pct": 0,
+      "soil_moisture": 0.142
+    },
+    {
+      "date": "2026-11-29",
+      "discharge_m3s": 0.0,
+      "discharge_max_m3s": 0.0,
+      "precip_mm": 0.0,
+      "precip_prob_pct": 0,
+      "soil_moisture": 0.141
+    }
+  ],
+  "telemetry": {
+    "latitude": 26.9176,
+    "longitude": 70.9039,
+    "dem_elevation_m": 237,
+    "p90_threshold_m3s": 0.0,
+    "median_baseline_m3s": 0.0,
+    "applied_threshold_m3s": 0.05,
+    "history_days_used": 92,
+    "sources": [
+      {
+        "name": "Open-Meteo Geocoding + Elevation (DEM)",
+        "fetched_at": "2026-11-23T08:42:25Z",
+        "data_window": "static 3x3 DEM grid, 0.05 deg spacing"
+      },
+      {
+        "name": "Open-Meteo Flood API (river discharge)",
+        "fetched_at": "2026-11-23T08:42:26Z",
+        "data_window": "2026-08-23 to 2026-11-29"
+      },
+      {
+        "name": "Open-Meteo Forecast API (rain, soil moisture)",
+        "fetched_at": "2026-11-23T08:42:26Z",
+        "data_window": "2026-11-20 to 2026-11-29"
+      }
+    ]
+  },
+  "helplines": [
+    {
+      "name": "National Emergency Response",
+      "number": "112"
+    },
+    {
+      "name": "Ambulance",
+      "number": "108"
+    },
+    {
+      "name": "Disaster Management Helpline",
+      "number": "1070"
+    },
+    {
+      "name": "NDMA Control Room",
+      "number": "1078"
+    },
+    {
+      "name": "Kisan Call Centre (farm advice)",
+      "number": "1800-180-1551"
+    }
+  ],
+  "agents": [
+    {
+      "step": 1,
+      "name": "Agent 1: Geospatial & Elevation Resolver",
+      "status": "done",
+      "ms": 1435,
+      "summary": "Jaisalmer, Rajasthan at 237 m. Flat plain / floodplain, 53 m relief in an 11 km window."
+    },
+    {
+      "step": 2,
+      "name": "Agent 2: River Discharge Hydrologist",
+      "status": "done",
+      "ms": 708,
+      "summary": "Peak 0.0 m³/s on 2026-11-23, 0.0x the recent median (0.0 m³/s). Flood risk 0/100 (Low)."
+    },
+    {
+      "step": 3,
+      "name": "Agent 3: Terrain & Soil Saturation Assessor",
+      "status": "done",
+      "ms": 157,
+      "summary": "0 mm rain over 7 days (+0 mm in the last 3), soil moisture peak 0.15 m³/m³. Landslide score 3/100 (Low)."
+    },
+    {
+      "step": 4,
+      "name": "Agent 4: Groq Disaster Preparedness Strategist",
+      "status": "done",
+      "ms": 1395,
+      "summary": "72-hour plan written by openai/gpt-oss-120b."
+    }
+  ],
+  "disclaimer": "Indicative model output built from open forecast data. It is not an official warning. Always follow alerts from IMD, CWC and your District Disaster Management Authority.",
+  "advisory": {
+    "headline": "Low flood risk, low landslide risk for Jaisalmer town",
+    "flood_summary": "Flood score 0, tier Low. No rain forecast, discharge 0 m³/s. No surge expected.",
+    "landslide_summary": "Landslide score 3, tier Low. Flat plain terrain, soil moisture around 0.14‑0.15, no rain trigger.",
+    "immediate_24h_actions": [
+      "Check that drainage channels are clear of debris",
+      "Secure loose items near walls and roofs",
+      "Verify that water storage tanks are covered",
+      "Ensure emergency lights and batteries are functional"
+    ],
+    "next_48_72h_actions": [
+      "Inspect roof thatch and mud walls for any cracks after wind gusts",
+      "Re‑check drainage after any unexpected rain",
+      "Review community contact list and share it with all households"
+    ],
+    "agri_livestock_steps": [
+      "Cover stored grain bags to keep dust out",
+      "Secure livestock pens and ensure animals have shade",
+      "Check that water troughs are clean and covered"
+    ],
+    "evacuation_checklist": [
+      "Identify nearest safe shelter location",
+      "Prepare a bag with water, medicines, documents, and a flashlight",
+      "Assign a family member to check on elderly or disabled neighbors",
+      "Keep a list of emergency phone numbers handy"
+    ],
+    "confidence_note": "Based on current telemetry showing zero precipitation and low risk scores, confidence is high for a calm 72‑hour period."
+  },
+  "advisory_source": "groq",
+  "model": "openai/gpt-oss-120b"
+}

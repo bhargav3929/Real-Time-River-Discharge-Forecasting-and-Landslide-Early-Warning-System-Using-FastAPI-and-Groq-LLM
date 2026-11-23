@@ -33,11 +33,12 @@ def discharge_stats(q: list, qmax: list) -> dict:
     if not fvals or len(hist) < 10:
         return {"available": False}
     baseline = statistics.median(hist)
-    threshold = max(percentile(hist, 0.90), baseline * 1.25, 0.05)
+    p90 = percentile(hist, 0.90)
+    threshold = max(p90, baseline * 1.25, 0.05)
     peak = max(fvals)
     peak_idx = fc.index(peak)
     surge = peak / max(baseline, 0.05)
-    return {"available": True, "baseline": baseline, "threshold": threshold, "peak": peak,
+    return {"available": True, "baseline": baseline, "p90": p90, "hist_days": len(hist), "threshold": threshold, "peak": peak,
             "peak_idx": peak_idx, "surge_ratio": surge,
             "ensemble_peak": max([v for v in fmax if v is not None] or [peak])}
 
