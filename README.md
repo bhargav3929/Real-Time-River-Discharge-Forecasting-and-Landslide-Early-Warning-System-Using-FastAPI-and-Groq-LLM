@@ -1,4 +1,4 @@
-# Multi Agent Flood Discharge Forecasting and Geospatial Landslide Risk Engine
+# Real Time River Discharge Forecasting and Landslide Early Warning System Using FastAPI and Groq LLM
 
 Type an Indian town, district or farm location. The app reads the live 7-day river discharge, rainfall and soil moisture forecast for that spot, looks up the terrain height around it, and scores two risks from 0 to 100: **flood risk** and **landslide susceptibility**. Then an AI writes a 72-hour preparedness plan for your kind of place (a town ward, a farm, or a hill settlement). It is built for students, local planners and anyone who wants a clear picture of the week ahead.
 

@@ -31,7 +31,7 @@ def _str(name: str, default: str) -> str:
 
 class S:
     VERSION = "1.0.0"
-    PROJECT_NAME = _str("PROJECT_NAME", "Multi Agent Flood Discharge Forecasting and Geospatial Landslide Risk Engine")
+    PROJECT_NAME = _str("PROJECT_NAME", "Real Time River Discharge Forecasting and Landslide Early Warning System Using FastAPI and Groq LLM")
     PROJECT_SLUG = _str("PROJECT_SLUG", "flood-landslide-risk")
     PROJECT_NUMBER = _int("PROJECT_NUMBER", 6)
     HOST = _str("HOST", "127.0.0.1")
